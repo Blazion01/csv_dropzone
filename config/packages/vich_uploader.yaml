@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        csv_files:
+            namer: Vich\UploaderBundle\Naming\SlugNamer
+            uri_prefix: /files/csv
+            upload_destination: '%kernel.project_dir%/public/files/csv'

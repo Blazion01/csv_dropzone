@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\File;
+use App\Entity\CsvFile;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,17 +14,31 @@ class FileUploadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('type')
-            ->add('size')
-            ->add('updatedAt')
+            ->add('csvFile', VichFileType::class, [
+                'required' => true,
+                'allow_delete' => true,
+                'delete_label' => 'Remove File',
+                'download_uri' => true,
+                'download_label' => true,
+                'asset_helper' => true,
+                'mapped' => false,
+            ])
+            ->add(
+                'submit',
+                SubmitType::class,
+                [
+                    'attr' => ['class' => 'form-control btn-primary pull-right'],
+                    'label' => 'Upload File'
+                ]
+            )
+            ->getForm()
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => File::class,
+            'data_class' => CsvFile::class,
         ]);
     }
 }
