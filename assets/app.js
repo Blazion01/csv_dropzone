@@ -11,8 +11,9 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 
-import 'dropzone/dist/dropzone.css';
-import Dropzone from 'dropzone';
+import '../vendor/enyo/dropzone/dist/dropzone.css';
+import Dropzone from '../vendor/enyo/dropzone';
+// import Dropzone from 'dropzone';
 
 Dropzone.autoDiscover = false;
 document.addEventListener('DOMContentLoaded', () => {
@@ -29,12 +30,25 @@ document.addEventListener('DOMContentLoaded', () => {
     method: "post",
     url: "handle-file",
 
-    init: function() {
+    init: () => {
         document.getElementById('file_upload_submit').addEventListener("click", function(e) {
+            console.log()
             e.preventDefault();
             myDropzone
         })
-    }
+    },
+
+    sending: file => {
+        if(file) {
+            console.log("sending");
+        }
+    },
+
+    success: file => {
+        if(file) {
+            console.log("success");
+        }
+    },
 });
 // je mag het woordt 'this' niet gebruiken als variabel. 
 //in JS is dit een verwijzing binnen het bestand. Verdander = this naar new Dropzone
@@ -43,4 +57,36 @@ document.addEventListener('DOMContentLoaded', () => {
 // voeg ook een console.log toe om te checken of er success is.
 //kijk even goed naar mijn github repo en bekijk wat jij mist wat ik wel heb
 //probeer deze javascript in een javascript file te zetten, app.js is een prime plek.
+myDropzone.on('addedfile', file => {
+    console.log("A file has been added");
+    console.log(file);
+})
+myDropzone.on('success', file => {
+    if(file) {
+        let success = document.getElementsByClassName('dz-success-mark');
+        let error = document.getElementsByClassName('dz-error-mark');
+        success.forEach(item => {
+            item.style.display = 'block';
+            item.style.backgroundColor = 'green';
+        });
+        error.forEach(item => {
+            item.style.display = 'none';
+            item.style.backgroundColor = 'red';
+        });
+    }
+})
+myDropzone.on('error', file => {
+    if(file) {
+        let success = document.getElementsByClassName('dz-success-mark');
+        let error = document.getElementsByClassName('dz-error-mark');
+        success.forEach(item => {
+            item.style.display = 'none';
+            item.style.backgroundColor = 'green';
+        });
+        error.forEach(item => {
+            item.style.display = 'block';
+            item.style.backgroundColor = 'red';
+        });
+    }
+})
 })
