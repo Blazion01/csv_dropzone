@@ -67,11 +67,9 @@ myDropzone.on('success', file => {
         let error = document.getElementsByClassName('dz-error-mark');
         success.forEach(item => {
             item.style.display = 'block';
-            item.style.backgroundColor = 'green';
         });
         error.forEach(item => {
             item.style.display = 'none';
-            item.style.backgroundColor = 'red';
         });
     }
 })
@@ -81,11 +79,9 @@ myDropzone.on('error', file => {
         let error = document.getElementsByClassName('dz-error-mark');
         success.forEach(item => {
             item.style.display = 'none';
-            item.style.backgroundColor = 'green';
         });
         error.forEach(item => {
             item.style.display = 'block';
-            item.style.backgroundColor = 'red';
         });
     }
 })

@@ -15,17 +15,14 @@ input.dropzone {
     height: 100px;
 }
 
-.dz-success-mark, .dz-error-mark {
+.dz-success-mark svg, .dz-error-mark svg {
     border-radius: 30px;
-    height: 54px;
-    width: 54px;
-    align-self: center;
 }
 
-.dz-success-mark {
+.dz-success-mark svg {
     background-color: green;
 }
 
-.dz-error-mark {
+.dz-error-mark svg {
     background-color: maroon;
 }
