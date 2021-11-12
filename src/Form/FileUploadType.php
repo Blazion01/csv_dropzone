@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\CsvFile;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
-use Symfony\UX\Dropzone\Form\DropzoneType;
+// use Symfony\UX\Dropzone\Form\DropzoneType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
