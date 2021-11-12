@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\CsvFile;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Vich\UploaderBundle\Form\Type\VichFileType;
 // use Symfony\UX\Dropzone\Form\DropzoneType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +14,7 @@ class FileUploadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('csvFile', VichFileType::class, [
+            ->add('csvFile', DropzoneType::class, [
                 'required' => true,
                 'allow_delete' => true,
                 'delete_label' => 'Remove File',
