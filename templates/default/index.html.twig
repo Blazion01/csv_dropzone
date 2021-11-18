@@ -21,7 +21,9 @@
             </div>
             <div class="col-sm-12" style="text-align:center;">
                 {{ form_start(form) }}
-                {{ form_row(form.csvFile, {'attr': {'class': 'dropzone'}})}}
+                <div class="dropzone">
+                {{ form_row(form.csvFile, {'attr': {'class': 'dropzone2'}})}}
+                </div>
                 {{ form_end(form) }}
             </div>
         </div>

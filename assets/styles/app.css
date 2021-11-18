@@ -1,8 +1,8 @@
 @import url('https://unpkg.com/dropzone@5/dist/min/dropzone.min.css');
 
-/* body {
+body {
     background-color: lightgray;
-} */
+}
 
 div.vich-file, div.dropzone-container {
     min-height: 100px;
@@ -10,12 +10,14 @@ div.vich-file, div.dropzone-container {
     text-align: center;
 }
 
-
-
 input[type=file], input.dropzone, input.dropzone-input {
     display: none;
     visibility: hidden;
     height: 100px;
+}
+
+input[type=file].dropzone {
+    display: block;
 }
 
 .dz-success-mark svg, .dz-error-mark svg {

@@ -17,10 +17,9 @@ import Dropzone from '../vendor/enyo/dropzone';
 
 Dropzone.autoDiscover = false;
 document.addEventListener('DOMContentLoaded', () => {
-  let myDropzone = new Dropzone('.vich-file', {
-    autoProcessQueue: false,
+  let myDropzone = new Dropzone('.dropzone', {
+    autoProcessQueue: true,
     chunking: true,
-    maxFileSize: 102400,
     chunkSize: 256000,
     parallelChunkUploads: true,
     parallelUploads: 1,
@@ -28,11 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
     retryChunks: true,
     retryChunksLimit: 3,
     method: "post",
-    url: "handle-file",
+    url: "/files/csv/upload",
 
     init: () => {
         document.getElementById('file_upload_submit').addEventListener("click", function(e) {
-            console.log()
+            console.log("updated")
             e.preventDefault();
             myDropzone
         })
