@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     retryChunks: true,
     retryChunksLimit: 3,
     method: "post",
-    url: "/files/csv/upload",
+    url: "/handle-file",
 
     init: () => {
         document.getElementById('file_upload_submit').addEventListener("click", function(e) {

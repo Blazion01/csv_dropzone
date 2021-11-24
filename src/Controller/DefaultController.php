@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,18 @@ use App\Form\FileUploadType;
 
 class DefaultController extends AbstractController
 {
+
+    /**
+     * @var ParameterBagInterface
+     */
+    private $parameterBag;
+
+    public function __construct(ParameterBagInterface $parameterBag)
+    {
+
+        $this->parameterBag = $parameterBag;
+    }
+
     #[Route('/', name: 'index')]
     #[Route('/home', name: 'home')]
     public function index(Request $request): Response
@@ -45,6 +58,7 @@ class DefaultController extends AbstractController
     #[Route('/handle-file', name: 'handle-file')]
     public function handleFile(Request $request) 
     {
+        dd($request->query->all());
         if ($request->getMethod() === Request::METHOD_POST) {
             $fileId = $request->request->get('dzuuid');
             $chunkIndex = (int)$request->request->get('dzchunkindex') + 1;
