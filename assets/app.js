@@ -18,7 +18,6 @@ import Dropzone from '../vendor/enyo/dropzone';
 Dropzone.autoDiscover = false;
 document.addEventListener('DOMContentLoaded', () => {
   let myDropzone = new Dropzone('.dropzone', {
-    autoProcessQueue: true,
     chunking: true,
     chunkSize: 256000,
     parallelChunkUploads: true,
