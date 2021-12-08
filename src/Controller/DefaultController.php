@@ -34,8 +34,12 @@ class DefaultController extends AbstractController
         $form = $this->createForm(FileUploadType::class, $file, ['method'=>'POST']);
         //$form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($request->getMethod() === Request::METHOD_POST) {
             dd($request);
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            echo "<pre>".print_r($_FILES)."<br>".print_r($_POST)."</pre>";
 //            $fileNaam = basename($_FILES["csv_upload"]["name"]["csvFile"]["file"]);
 //            $fileType = pathinfo($fileNaam,PATHINFO_EXTENSION);
 //            if($fileType != "csv") {

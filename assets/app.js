@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     init: () => {
         document.getElementById('file_upload_submit').addEventListener("click", function(e) {
             console.log("updated")
-            e.preventDefault();
-            myDropzone
+            // e.preventDefault();
+            return myDropzone
         })
     },
 
