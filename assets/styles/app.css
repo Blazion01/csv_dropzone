@@ -10,11 +10,11 @@ div.vich-file, div.dropzone-container {
     text-align: center;
 }
 
-input[type=file], input.dropzone, input.dropzone-input {
+/* input[type=file], input.dropzone, input.dropzone-input {
     display: none;
     visibility: hidden;
     height: 100px;
-}
+} */
 
 input[type=file].dropzone {
     display: block;

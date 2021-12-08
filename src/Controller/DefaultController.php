@@ -31,23 +31,23 @@ class DefaultController extends AbstractController
     {
         $file = new CsvFile();
 
-        $form = $this->createForm(FileUploadType::class, $file);
-        $form->handleRequest($request);
+        $form = $this->createForm(FileUploadType::class, $file, ['method'=>'POST']);
+        //$form->handleRequest($request);
 
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            echo "<pre>".print_r($_FILES)."</pre>";
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($request);
 //            $fileNaam = basename($_FILES["csv_upload"]["name"]["csvFile"]["file"]);
 //            $fileType = pathinfo($fileNaam,PATHINFO_EXTENSION);
 //            if($fileType != "csv") {
 //              $this->addFlash('info', 'File must be of type: \'.csv\'');
-//              return $this->redirectToRoute('file_upload');
+//              return $this->redirectToRoute('index');
 //            }
 //            $this->entityManager->persist($file);
 //            $this->entityManager->flush($file);
 //
 //            $this->addFlash('success', 'file uploaded');
 //            $this->redirectToRoute('home');
-//        }
+        }
 
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
@@ -109,7 +109,7 @@ class DefaultController extends AbstractController
                 }
                 file_put_contents(`$targetPath$fileId.$fileType`, $file_content);
 
-                $returnResponse(null, null, "final return");
+                $returnResponse(null, `$targetPath$fileId.$fileType`, "final return");
             } else {
                 $returnResponse(null, null, "chunksending not reached");
             }

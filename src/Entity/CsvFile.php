@@ -69,7 +69,7 @@ class CsvFile
 
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
-        $this->updatedAt = date_create("now");
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -27,7 +27,6 @@ class FileUploadType extends AbstractType
                     'label' => 'Upload File'
                 ]
             )
-            ->getForm()
         ;
     }
 
