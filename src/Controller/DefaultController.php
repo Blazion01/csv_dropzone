@@ -19,9 +19,20 @@ class DefaultController extends AbstractController
      */
     private $parameterBag;
 
+    /////**
+    ///// * @var EntityManagerInterface
+    ///// */
+    ////private $entityManager;
+    ////
+    /////**
+    ///// * @var \Doctrine\Persistence\ObjectRepository
+    ///// */
+    ////private $csvFileRepository;
+
     public function __construct(ParameterBagInterface $parameterBag)
     {
-
+        ////$this->entityManager = $entityManager;
+        ////$this->csvFileRepository = $entityManager->getRepository('App:CsvFile');
         $this->parameterBag = $parameterBag;
     }
 
@@ -35,11 +46,24 @@ class DefaultController extends AbstractController
         //$form->handleRequest($request);
 
         if ($request->getMethod() === Request::METHOD_POST) {
+            $file = $request->files->get("file_upload")["csvFile"];
+            if($file != null) {
+                $size = filesize($file);
+                $size = round($size / 1024 / 1024, 1);
+                $name = $file->getClientOriginalName();
+                $updatedAt = date("H:i:s d-m-Y");
+                $array = [$name, $size, $updatedAt];
+                echo "<pre>".print_r($file)."</pre>";
+                //$this->entityManager->persist($file);
+                //$this->entityManager->flush($file);
+                //$this->addFlash('success', 'file uploaded');
+                //$this->redirectToRoute('home');
+            }
             dd($request);
         }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            echo "<pre>".print_r($_FILES)."<br>".print_r($_POST)."</pre>";
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            echo "<pre>".print_r($_FILES)."<br>".print_r($_POST)."</pre>";
 //            $fileNaam = basename($_FILES["csv_upload"]["name"]["csvFile"]["file"]);
 //            $fileType = pathinfo($fileNaam,PATHINFO_EXTENSION);
 //            if($fileType != "csv") {
@@ -51,7 +75,7 @@ class DefaultController extends AbstractController
 //
 //            $this->addFlash('success', 'file uploaded');
 //            $this->redirectToRoute('home');
-        }
+//        }
 
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
