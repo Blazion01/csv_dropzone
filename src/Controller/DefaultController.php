@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\CsvFile;
 use App\Form\FileUploadType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DefaultController extends AbstractController
 {
