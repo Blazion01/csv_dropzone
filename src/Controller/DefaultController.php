@@ -19,20 +19,20 @@ class DefaultController extends AbstractController
      */
     private $parameterBag;
 
-    /////**
-    ///// * @var EntityManagerInterface
-    ///// */
-    ////private $entityManager;
-    ////
-    /////**
-    ///// * @var \Doctrine\Persistence\ObjectRepository
-    ///// */
-    ////private $csvFileRepository;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+    
+    /**
+     * @var \Doctrine\Persistence\ObjectRepository
+     */
+    private $csvFileRepository;
 
-    public function __construct(ParameterBagInterface $parameterBag)
+    public function __construct(ParameterBagInterface $parameterBag, EntityManagerInterface $entityManager)
     {
-        ////$this->entityManager = $entityManager;
-        ////$this->csvFileRepository = $entityManager->getRepository('App:CsvFile');
+        $this->entityManager = $entityManager;
+        $this->csvFileRepository = $entityManager->getRepository('App:CsvFile');
         $this->parameterBag = $parameterBag;
     }
 
@@ -54,8 +54,8 @@ class DefaultController extends AbstractController
                 $updatedAt = date("H:i:s d-m-Y");
                 $array = [$name, $size, $updatedAt];
                 echo "<pre>".print_r($file)."</pre>";
-                //$this->entityManager->persist($file);
-                //$this->entityManager->flush($file);
+                $this->entityManager->persist($file);
+                $this->entityManager->flush($file);
                 //$this->addFlash('success', 'file uploaded');
                 //$this->redirectToRoute('home');
             }
