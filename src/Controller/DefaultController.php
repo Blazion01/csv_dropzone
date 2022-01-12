@@ -38,7 +38,6 @@ class DefaultController extends AbstractController
     }
 
     #[Route('/', name: 'index')]
-    #[Route('/home', name: 'home')]
     public function index(Request $request): Response
     {
         $file = new CsvFile();
