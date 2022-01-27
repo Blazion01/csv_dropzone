@@ -1,31 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dropzone test{% endblock %}
+{% block title %}Hello ImportController!{% endblock %}
 
 {% block body %}
-    <div class="container" style="text-align:center;">
-        <div>
-            <h2>Upload CSV File</h2>
-        </div>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
 
-        <div style="margin:0 auto;width:400px">
-            <div class="col-md-12 col-lg-12 col-xl-12">
-                {% for label, messages in app.flashes %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ label }}" role="alert">
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
+    <div class="example-wrapper">
+        {% if filename %}
+            <h5>File "{{ filename }}" succesfully uploaded in {{ upload_dir }}!</h5>
+        {% endif %}
+
+        {% if jsonstring %}
+            {{ dump(jsonstring) }}
+        {% endif %}
+
+        <form action="doUpload" method="post" enctype="multipart/form-data">
+
+            <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
+
+            <div>
+                <label>File to upload:</label>
+                <input type="file" name="myfile">
             </div>
-            <div class="col-sm-12" style="text-align:center;">
-                {{ form_start(form) }}
-                {# <div class="dropzone"> #}
-                {{ form_row(form.csvFile, {'attr': {'class': 'dropzone'}})}}
-                {# </div> #}
-                {{ form_end(form) }}
-            </div>
-        </div>
+
+            <button type="submit">Send</button>
+
+        </form>
+
+
     </div>
 {% endblock %}

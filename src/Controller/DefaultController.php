@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\CsvFile;
 use App\Form\FileUploadType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Service\FileUploader;
+use Psr\Log\LoggerInterface;
 
 class DefaultController extends AbstractController
 {
@@ -37,7 +39,7 @@ class DefaultController extends AbstractController
         $this->parameterBag = $parameterBag;
     }
 
-    #[Route('/', name: 'index')]
+    #[Route('/test', name: 'index')]
     public function index(Request $request): Response
     {
         $file = new CsvFile();
@@ -142,5 +144,57 @@ class DefaultController extends AbstractController
                 $returnResponse(null, null, "chunksending not reached");
             }
         }
+    }
+
+    #[Route('/', name: 'index2')]
+    public function test(Request $request) {
+        $token = $request->get("token");
+        if($token == null) {echo "token is empty";}
+        $dump = $request;
+        return $this->render('base.html.twig', [
+            'dump' => $dump,
+        ]);
+    }
+
+    #[Route('/doUpload', name: 'upload')]
+    public function doUpload(Request $request, string $uploadDir, FileUploader $uploader, LoggerInterface $logger)
+    {
+        $token = $request->get("token");
+
+        if($token == null) {echo "token is empty";}
+
+        if (!$this->isCsrfTokenValid('upload', $token)) {
+            echo $token;
+            //dd($request);
+            $logger->info("CSRF failure");
+
+            $response = new Response("Operation not allowed", Response::HTTP_BAD_REQUEST,
+                ['content-type' => 'text/plain']);
+            return $this->render('base.html.twig', [
+                'dump' => $response,
+            ]);
+        }
+
+        $file = $request->files->get('myfile');
+
+        if (empty($file)) {
+            return new Response("No file specified",
+                Response::HTTP_UNPROCESSABLE_ENTITY, ['content-type' => 'text/plain']);
+        }
+
+        $filename = $file->getClientOriginalName();
+        $uploader->upload($uploadDir, $file, $filename);
+
+
+        $content = utf8_encode(file_get_contents($uploadDir.'/'.$filename));  // load with UTF8
+
+        //content bewerken
+        dd($content);
+
+        return $this->render('default/index.html.twig', [
+            'filename' => $filename,
+            'jsonstring' => $content,
+            'upload_dir' => $uploadDir,
+        ]);
     }
 }
